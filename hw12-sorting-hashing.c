@@ -254,17 +254,17 @@ int shellSort(int *a)
 
 	printArray(a);
 
-	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)
+	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)				//반복될때마다 h의 값이 1이 될때까지 절반으로 감소
 	{
-		for (i = 0; i < h; i++)
+		for (i = 0; i < h; i++)								//반복될때마다 h-1까지 1씩 증가
 		{
-			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)
+			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)		//반복될때마다 0부터 h만큼 증가
 			{
 				v = a[j];
 				k = j;
-				while (k > h-1 && a[k-h] > v)
+				while (k > h-1 && a[k-h] > v)				//insertionSort와 동일 방법
 				{
-					a[k] = a[k-h];
+					a[k] = a[k-h];							
 					k -= h;
 				}
 				a[k] = v;
@@ -282,28 +282,28 @@ int quickSort(int *a, int n)
 	int v, t;
 	int i, j;
 
-	if (n > 1)
+	if (n > 1)					
 	{
-		v = a[n-1];
+		v = a[n-1];		//피봇으로 지정
 		i = -1;
 		j = n - 1;
 
 		while(1)
 		{
-			while(a[++i] < v);
-			while(a[--j] > v);
+			while(a[++i] < v);			//피봇보다 큰 값을 찾을때까지 반복해서 증가
+			while(a[--j] > v);			//피봇보다 작은 값을 찾을때까지 반복해서 감소
 
-			if (i >= j) break;
-			t = a[i];
+			if (i >= j) break;			//서로의 위치가 역전되었다면 반복문 종료
+			t = a[i];					//서로 위치의 값을 교환
 			a[i] = a[j];
 			a[j] = t;
 		}
-		t = a[i];
+		t = a[i];						//피봇과 피봇보다 큰 값의 위치를 교환
 		a[i] = a[n-1];
 		a[n-1] = t;
 
-		quickSort(a, i);
-		quickSort(a+i+1, n-i-1);
+		quickSort(a, i);				//교환된 피봇위치의 좌측 퀵정렬
+		quickSort(a+i+1, n-i-1);		//교환된 피봇위치의 우측 퀵정렬
 	}
 
 
