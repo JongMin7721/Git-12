@@ -326,7 +326,7 @@ int hashing(int *a, int **ht)
 		hashtable = *ht;	/* hash table이 NULL이 아닌경우, table 재활용, reset to -1 */
 	}
 
-	for(int i = 0; i < MAX_HASH_TABLE_SIZE; i++)
+	for(int i = 0; i < MAX_HASH_TABLE_SIZE; i++)					//해시테이블 초기화						
 		hashtable[i] = -1;
 
 	/*
@@ -339,26 +339,26 @@ int hashing(int *a, int **ht)
 	int index = -1;
 	for (int i = 0; i < MAX_ARRAY_SIZE; i++)
 	{
-		key = a[i];
-		hashcode = hashCode(key);
+		key = a[i];								//배열에 저장된 순서대로 key에 입력
+		hashcode = hashCode(key);				//최대 크기로 나눈 나머지를 해시코드로 저장
 		/*
-		printf("key = %d, hashcode = %d, hashtable[%d]=%d\n", key, hashcode, hashcode, hashtable[hashcode]);
+		printf("key = %d, hashcode = %d, hashtable[ 해당 해시테이블에 키 입력%d]=%d\n", key, hashcode, hashcode, hashtable[hashcode]);
 		*/
-		if (hashtable[hashcode] == -1)
+		if (hashtable[hashcode] == -1)			//해시테이블이 -1 이라면
 		{
-			hashtable[hashcode] = key;
-		} else 	{
+			hashtable[hashcode] = key;			//해당 해시테이블에 키 입력
+		} else 	{								//아니라면
 
-			index = hashcode;
+			index = hashcode;					//index라는 변수에 해시코드를 넣고
 
-			while(hashtable[index] != -1)
+			while(hashtable[index] != -1)		//해시테이블이 비어 있을 때까지
 			{
-				index = (++index) % MAX_HASH_TABLE_SIZE;
+				index = (++index) % MAX_HASH_TABLE_SIZE;		//index값을 늘려가며 찾는다.
 				/*
 				printf("index = %d\n", index);
 				*/
 			}
-			hashtable[index] = key;
+			hashtable[index] = key;								//비어있는 해시테이블을 발견하면 그 위치에 키를 입력
 		}
 	}
 
@@ -367,16 +367,16 @@ int hashing(int *a, int **ht)
 
 int search(int *ht, int key)
 {
-	int index = hashCode(key);
+	int index = hashCode(key);				//index에 키를 저장
 
-	if(ht[index] == key)
-		return index;
+	if(ht[index] == key)					//해당 위치에 키가 있다면 
+		return index;						//위치 반환
 
-	while(ht[++index] != key)
+	while(ht[++index] != key)				//해시테이블에 키가 있을떄까지 반복
 	{
-		index = index % MAX_HASH_TABLE_SIZE;
+		index = index % MAX_HASH_TABLE_SIZE;	//최대크기를 넘지 않도록 설정 후
 	}
-	return index;
+	return index;							//키를 발견하면 위치 반환
 }
 
 
